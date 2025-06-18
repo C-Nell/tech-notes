@@ -18,7 +18,7 @@ You will receive the message: What do you want to create?
 
 Enter the ID of the plugin [required] example: hello-world
 
-To start the project tye
+To start the project, type:
 ```
 yarn start
 ```
