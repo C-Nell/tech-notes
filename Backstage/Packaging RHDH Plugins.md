@@ -46,7 +46,14 @@ await build({
   external: [],
 });
 ```
-## Run the custom esbuild build
+
+## Run the custom esbuild build CMD
+```
+rmdir /s /q dist
+node build.mjs
+```
+
+## Run the custom esbuild build Git Bash
 ```
 rm -rf dist
 node build.mjs
