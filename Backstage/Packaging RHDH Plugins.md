@@ -28,7 +28,7 @@ yarn tsc
 ```
 yarn build
 ```
-## Create build.mjs in the plugin folder
+## Create build.mjs in the plugin folder [BACKEND PLUGINS ONLY]
 ```
 touch build.mjs
 ```
@@ -47,13 +47,13 @@ await build({
 });
 ```
 
-## Run the custom esbuild build CMD
+## Run the custom esbuild build CMD [BACKEND PLUGINS ONLY]
 ```
 rmdir /s /q dist
 node build.mjs
 ```
 
-## Run the custom esbuild build Git Bash
+## Run the custom esbuild build Git Bash [BACKEND PLUGINS ONLY]
 ```
 rm -rf dist
 node build.mjs
