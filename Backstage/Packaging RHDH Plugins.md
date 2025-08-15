@@ -62,7 +62,11 @@ node build.mjs
 ```
 yarn pack
 ```
-## Copy the package to your RHDH plugin server
+## Copy the package to your RHDH plugin server [Git Bash]
+```
+oc cp <plugin.tgz> <plugin-server-pod>:/opt/app-root/src -n <namespace>
+```
+## Copy the package to your RHDH plugin server [CMD or PowerShell]
 ```
 oc cp your-plugin-name.tgz <namespace>/<plugin-server-pod>:/var/www/html/
 ```
