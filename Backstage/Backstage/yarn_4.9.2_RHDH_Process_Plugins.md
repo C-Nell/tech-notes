@@ -57,15 +57,17 @@ cd <your-plugin-repo>
 ```
 yarn install
 ```
+### Run tsc in each plugin folder
+```
+npx tsc
+```
+
 ### Run cli build for front end plugins
 ```
 yarn backstage-cli package build
 ```
 
-### Run tsc in each plugin folder
-```
-npx tsc
-```
+
 ### Run red hat developer cli tool
 ```
 npx @red-hat-developer-hub/cli@latest plugin export
