@@ -1,0 +1,55 @@
+{
+  "resolutions": {
+    // Core React JSX
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    
+    // JSX Runtime (this is key for jsx-runtime errors)
+    "react/jsx-runtime": "^18.0.0",
+    "react/jsx-dev-runtime": "^18.0.0",
+    
+    // TypeScript JSX support
+    "typescript": "~5.2.0",
+    "@types/node": "^18.0.0",
+    
+    // JSX Transform dependencies
+    "@babel/runtime": "^7.23.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-react": "^7.22.0",
+    "@babel/plugin-transform-react-jsx": "^7.22.0",
+    "@babel/plugin-transform-react-jsx-development": "^7.22.0",
+    
+    // SWC JSX (alternative to Babel)
+    "@swc/core": "^1.3.0",
+    "@swc/helpers": "^0.5.0",
+    
+    // Webpack JSX loaders
+    "babel-loader": "^9.1.0",
+    "ts-loader": "^9.5.0",
+    
+    // ESBuild JSX
+    "esbuild": "^0.19.0",
+    "esbuild-loader": "^4.0.0",
+    
+    // Vite JSX
+    "vite": "^4.4.0",
+    "@vitejs/plugin-react": "^4.1.0",
+    "@vitejs/plugin-react-swc": "^3.4.0",
+    
+    // Emotion JSX (common with Material-UI)
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@emotion/babel-plugin": "^11.11.0",
+    
+    // Styled Components JSX
+    "styled-components": "^6.0.0",
+    "@types/styled-components": "^5.1.0",
+    "babel-plugin-styled-components": "^2.1.0",
+    
+    // React specific utilities that use JSX
+    "react-is": "^18.0.0",
+    "prop-types": "^15.8.0"
+  }
+}
