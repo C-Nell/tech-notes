@@ -181,21 +181,13 @@ Add the following secrets to your GitHub repository (Settings → Secrets → Ac
 |`NUTANIX_PASSWORD`|API password              |••••••••                      |
 |`RHDH_URL`        |RHDH instance URL         |https://rhdh.company.com      |
 
-## 3.3 RHDH Service Account Setup
+## 3.3 RHDH Token Setup
 
-**Create a service account in RHDH:**
+**Create a API token in RHDH:**
 
-1. Go to RHDH → **Settings** → **Administration** → **Service Accounts**
-1. Click **Create Service Account**
-1. Name: `github-actions-provisioner`
-1. Permissions:
-- `catalog.entity.create`
-- `catalog.entity.read`
-- `notifications.create`
-1. Copy the generated token
 1. Add to GitHub Secrets as `BACKSTAGE_TOKEN`
 
-## 3.4 Enable RHDH Notifications Plugin
+## 3.4 Enable RHDH Notifications Plugin Example:
 
 In your RHDH `app-config.yaml`:
 
