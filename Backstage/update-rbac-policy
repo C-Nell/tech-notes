@@ -1,0 +1,191 @@
+# =======================================================
+# XBAG RHDH RBAC - Landing Zone Platform Restrictions
+# Phase 1: Nutanix Landing Zone
+# =======================================================
+
+# -------------------------------------------------------
+# KEYCLOAK ROLE MAPPINGS
+# -------------------------------------------------------
+
+# Existing roles
+g, group:default/xbag-nonprod-admin, role:default/full-access
+g, group:default/xbag-nonprod-devl, role:default/catalog-dev-access
+g, group:default/xbag-dev-adm, role:default/full-catalog-access
+
+# Landing Zone Provisioners (users who can execute templates)
+g, group:default/xbag-lz-nutanix-provisioner, role:default/nutanix-lz-provisioner
+
+# Future landing zone provisioners
+# g, group:default/xbag-lz-containers-provisioner, role:default/containers-lz-provisioner
+# g, group:default/xbag-lz-azure-provisioner, role:default/azure-lz-provisioner
+# g, group:default/xbag-lz-aws-provisioner, role:default/aws-lz-provisioner
+
+# Other infrastructure provisioners
+# g, group:default/xbag-aap-provisioner, role:default/aap-provisioner
+
+# -------------------------------------------------------
+# CATALOG PERMISSIONS (Keep existing)
+# -------------------------------------------------------
+
+# Full access
+p, role:default/full-access, catalog-entity, create, allow
+p, role:default/full-access, catalog-entity, read, allow
+p, role:default/full-access, catalog-entity, update, allow
+p, role:default/full-access, catalog-entity, delete, allow
+p, role:default/full-access, policy-entity, create, allow
+p, role:default/full-access, policy-entity, read, allow
+
+# Full catalog access
+p, role:default/full-catalog-access, catalog-entity, create, allow
+p, role:default/full-catalog-access, catalog-entity, read, allow
+p, role:default/full-catalog-access, catalog-entity, update, allow
+p, role:default/full-catalog-access, catalog-entity, delete, allow
+
+# Catalog dev access
+p, role:default/catalog-dev-access, catalog-entity, read, allow
+p, role:default/catalog-dev-access, catalog-entity, create, allow
+
+# Landing zone provisioners - catalog access to register resources
+p, role:default/nutanix-lz-provisioner, catalog-entity, read, allow
+p, role:default/nutanix-lz-provisioner, catalog-entity, create, allow
+
+# -------------------------------------------------------
+# DEFAULT: ALLOW TEMPLATE EXECUTION
+# -------------------------------------------------------
+
+# Developers can execute templates (general)
+p, role:default/catalog-dev-access, scaffolder.template.entity.read, read, allow
+p, role:default/catalog-dev-access, scaffolder.action.execute, use, allow
+p, role:default/catalog-dev-access, scaffolder.template.parameter.read, read, allow
+
+p, role:default/full-catalog-access, scaffolder.template.entity.read, read, allow
+p, role:default/full-catalog-access, scaffolder.action.execute, use, allow
+p, role:default/full-catalog-access, scaffolder.template.parameter.read, read, allow
+
+# Landing zone provisioners can execute templates (general)
+p, role:default/nutanix-lz-provisioner, scaffolder.template.entity.read, read, allow
+p, role:default/nutanix-lz-provisioner, scaffolder.action.execute, use, allow
+p, role:default/nutanix-lz-provisioner, scaffolder.template.parameter.read, read, allow
+
+# Full access can execute everything
+p, role:default/full-access, scaffolder.template.entity.read, read, allow
+p, role:default/full-access, scaffolder.action.execute, use, allow
+p, role:default/full-access, scaffolder.template.parameter.read, read, allow
+
+# =======================================================
+# LANDING ZONE: NUTANIX (ALL ENVIRONMENTS)
+# =======================================================
+
+# -------------------------------------------------------
+# Nutanix Production Landing Zone
+# -------------------------------------------------------
+
+# ❌ Deny for regular developers
+p, role:default/catalog-dev-access, scaffolder.template.entity.read, read, deny, [template:default/nutanix-lz-prod]
+p, role:default/catalog-dev-access, scaffolder.action.execute, use, deny, [template:default/nutanix-lz-prod]
+
+p, role:default/full-catalog-access, scaffolder.template.entity.read, read, deny, [template:default/nutanix-lz-prod]
+p, role:default/full-catalog-access, scaffolder.action.execute, use, deny, [template:default/nutanix-lz-prod]
+
+# ✅ Allow for Nutanix provisioners
+p, role:default/nutanix-lz-provisioner, scaffolder.template.entity.read, read, allow, [template:default/nutanix-lz-prod]
+p, role:default/nutanix-lz-provisioner, scaffolder.action.execute, use, allow, [template:default/nutanix-lz-prod]
+
+# ✅ Allow for platform admins
+p, role:default/full-access, scaffolder.template.entity.read, read, allow, [template:default/nutanix-lz-prod]
+p, role:default/full-access, scaffolder.action.execute, use, allow, [template:default/nutanix-lz-prod]
+
+# -------------------------------------------------------
+# Nutanix Staging Landing Zone
+# -------------------------------------------------------
+
+# ❌ Deny for regular developers
+p, role:default/catalog-dev-access, scaffolder.template.entity.read, read, deny, [template:default/nutanix-lz-staging]
+p, role:default/catalog-dev-access, scaffolder.action.execute, use, deny, [template:default/nutanix-lz-staging]
+
+p, role:default/full-catalog-access, scaffolder.template.entity.read, read, deny, [template:default/nutanix-lz-staging]
+p, role:default/full-catalog-access, scaffolder.action.execute, use, deny, [template:default/nutanix-lz-staging]
+
+# ✅ Allow for Nutanix provisioners
+p, role:default/nutanix-lz-provisioner, scaffolder.template.entity.read, read, allow, [template:default/nutanix-lz-staging]
+p, role:default/nutanix-lz-provisioner, scaffolder.action.execute, use, allow, [template:default/nutanix-lz-staging]
+
+# ✅ Allow for platform admins
+p, role:default/full-access, scaffolder.template.entity.read, read, allow, [template:default/nutanix-lz-staging]
+p, role:default/full-access, scaffolder.action.execute, use, allow, [template:default/nutanix-lz-staging]
+
+# -------------------------------------------------------
+# Nutanix Development Landing Zone
+# -------------------------------------------------------
+
+# ❌ Deny for regular developers
+p, role:default/catalog-dev-access, scaffolder.template.entity.read, read, deny, [template:default/nutanix-lz-dev]
+p, role:default/catalog-dev-access, scaffolder.action.execute, use, deny, [template:default/nutanix-lz-dev]
+
+p, role:default/full-catalog-access, scaffolder.template.entity.read, read, deny, [template:default/nutanix-lz-dev]
+p, role:default/full-catalog-access, scaffolder.action.execute, use, deny, [template:default/nutanix-lz-dev]
+
+# ✅ Allow for Nutanix provisioners
+p, role:default/nutanix-lz-provisioner, scaffolder.template.entity.read, read, allow, [template:default/nutanix-lz-dev]
+p, role:default/nutanix-lz-provisioner, scaffolder.action.execute, use, allow, [template:default/nutanix-lz-dev]
+
+# ✅ Allow for platform admins
+p, role:default/full-access, scaffolder.template.entity.read, read, allow, [template:default/nutanix-lz-dev]
+p, role:default/full-access, scaffolder.action.execute, use, allow, [template:default/nutanix-lz-dev]
+
+# =======================================================
+# FUTURE LANDING ZONES (Ready to uncomment)
+# =======================================================
+
+# -------------------------------------------------------
+# CONTAINERS Landing Zone (Future)
+# -------------------------------------------------------
+# g, group:default/xbag-lz-containers-provisioner, role:default/containers-lz-provisioner
+# p, role:default/containers-lz-provisioner, catalog-entity, read, allow
+# p, role:default/containers-lz-provisioner, catalog-entity, create, allow
+# p, role:default/containers-lz-provisioner, scaffolder.action.execute, use, allow
+
+# Containers Prod/Staging/Dev
+# p, role:default/catalog-dev-access, scaffolder.action.execute, use, deny, [template:default/containers-lz-prod]
+# p, role:default/containers-lz-provisioner, scaffolder.action.execute, use, allow, [template:default/containers-lz-prod]
+# p, role:default/full-access, scaffolder.action.execute, use, allow, [template:default/containers-lz-prod]
+
+# -------------------------------------------------------
+# AZURE Landing Zone (Future)
+# -------------------------------------------------------
+# g, group:default/xbag-lz-azure-provisioner, role:default/azure-lz-provisioner
+# p, role:default/azure-lz-provisioner, catalog-entity, read, allow
+# p, role:default/azure-lz-provisioner, catalog-entity, create, allow
+# p, role:default/azure-lz-provisioner, scaffolder.action.execute, use, allow
+
+# Azure Prod/Staging/Dev
+# p, role:default/catalog-dev-access, scaffolder.action.execute, use, deny, [template:default/azure-lz-prod]
+# p, role:default/azure-lz-provisioner, scaffolder.action.execute, use, allow, [template:default/azure-lz-prod]
+
+# -------------------------------------------------------
+# AWS Landing Zone (Future)
+# -------------------------------------------------------
+# g, group:default/xbag-lz-aws-provisioner, role:default/aws-lz-provisioner
+# p, role:default/aws-lz-provisioner, catalog-entity, read, allow
+# p, role:default/aws-lz-provisioner, catalog-entity, create, allow
+# p, role:default/aws-lz-provisioner, scaffolder.action.execute, use, allow
+
+# AWS Prod/Staging/Dev
+# p, role:default/catalog-dev-access, scaffolder.action.execute, use, deny, [template:default/aws-lz-prod]
+# p, role:default/aws-lz-provisioner, scaffolder.action.execute, use, allow, [template:default/aws-lz-prod]
+
+# =======================================================
+# OTHER INFRASTRUCTURE (Separate from Landing Zones)
+# =======================================================
+
+# -------------------------------------------------------
+# AAP (Ansible Automation Platform) - Future
+# -------------------------------------------------------
+# g, group:default/xbag-aap-provisioner, role:default/aap-provisioner
+# p, role:default/aap-provisioner, catalog-entity, read, allow
+# p, role:default/aap-provisioner, catalog-entity, create, allow
+# p, role:default/aap-provisioner, scaffolder.action.execute, use, allow
+
+# AAP Prod/Staging/Dev
+# p, role:default/catalog-dev-access, scaffolder.action.execute, use, deny, [template:default/provision-aap-server-prod]
+# p, role:default/aap-provisioner, scaffolder.action.execute, use, allow, [template:default/provision-aap-server-prod]
